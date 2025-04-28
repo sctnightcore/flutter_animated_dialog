@@ -131,70 +131,99 @@ enum ListType {
 ///file name: classic_dialog_widget.dart
 ///description: Classic dialog with list content
 ///
-class ClassicListDialogWidget<T> extends StatefulWidget {
-  ///Title text of the dialog
-  final String titleText;
+@immutable
+class ClassicGeneralDialogWidget extends StatelessWidget {
+  /// Title text of the dialog
+  final String? titleText; // Made nullable
 
-  ///Data of the list
-  final List<T> dataList;
+  /// Content text of the dialog
+  final String? contentText; // Made nullable
 
-  ///Custom list item widget
-  final Widget listItem;
+  /// Text of negative button, the left button at the bottom of dialog
+  final String? negativeText; // Made nullable
 
-  ///Click callback of default list item
-  final VoidCallback onListItemClick;
+  /// Text of positive button, the right button at the bottom of dialog
+  final String? positiveText; // Made nullable
 
-  ///List type
-  final ListType listType;
+  /// TextStyle of negative button, the left button at the bottom of dialog
+  final TextStyle? negativeTextStyle; // Already nullable
 
-  ///Where to place control relative to the text
-  final ListTileControlAffinity controlAffinity;
+  /// TextStyle of positive button, the right button at the bottom of dialog
+  final TextStyle? positiveTextStyle; // Already nullable
 
-  ///The active color of radio or checkbox
-  final Color activeColor;
+  /// Click callback of negative button
+  final VoidCallback? onNegativeClick; // Already nullable
 
-  ///Selected indexes when [listType] is [ListType.multiSelect]
-  final List<int> selectedIndexes;
+  /// Click callback of positive button
+  final VoidCallback? onPositiveClick; // Already nullable
 
-  ///Selected index when [listType] is [ListType.singleSelect]
-  final int selectedIndex;
+  /// Actions at the bottom of dialog
+  final List<Widget>? actions; // Already nullable
 
-  ///Text of negative button, the left button at the bottom of dialog
-  final String negativeText;
-
-  ///Text of positive button, the right button at the bottom of dialog
-  final String positiveText;
-
-  ///Click callback of negative button
-  final VoidCallback onNegativeClick;
-
-  ///Click callback of positive button
-  final VoidCallback onPositiveClick;
-
-  ///Actions at the bottom of dialog, when this is set, [negativeText] [positiveText] [onNegativeClick] [onPositiveClick] will not work。
-  final List<Widget> actions;
-
-  ClassicListDialogWidget({
+  const ClassicGeneralDialogWidget({
     this.titleText,
-    this.dataList,
-    this.listItem,
-    this.onListItemClick,
-    this.listType = ListType.single,
-    this.controlAffinity = ListTileControlAffinity.leading,
-    this.activeColor,
-    this.selectedIndexes,
-    this.selectedIndex,
+    this.contentText,
     this.actions,
     this.negativeText,
     this.positiveText,
+    this.negativeTextStyle,
+    this.positiveTextStyle,
     this.onNegativeClick,
     this.onPositiveClick,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return ClassicListDialogWidgetState<T>();
+  Widget build(BuildContext context) {
+    return CustomDialogWidget(
+      title: titleText != null
+          ? Text(
+              titleText!,
+              style: Theme.of(context).dialogTheme.titleTextStyle,
+            )
+          : null,
+      content: contentText != null
+          ? Text(
+              contentText!,
+              style: Theme.of(context).dialogTheme.contentTextStyle,
+            )
+          : null,
+      actions: actions ??
+          [
+            if (onNegativeClick != null)
+              TextButton( // Updated to TextButton (FlatButton is deprecated)
+                onPressed: onNegativeClick,
+                style: TextButton.styleFrom(
+                  splashFactory: Theme.of(context).splashFactory,
+                ),
+                child: Text(
+                  negativeText ?? 'Cancel',
+                  style: negativeTextStyle ??
+                      TextStyle(
+                        color: Theme.of(context).textTheme.bodySmall?.color,
+                        fontSize: Theme.of(context).textTheme.labelLarge?.fontSize,
+                      ),
+                ),
+              ),
+            if (onPositiveClick != null)
+              TextButton( // Updated to TextButton
+                onPressed: onPositiveClick,
+                style: TextButton.styleFrom(
+                  splashFactory: Theme.of(context).splashFactory,
+                ),
+                child: Text(
+                  positiveText ?? 'Confirm',
+                  style: positiveTextStyle ??
+                      TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: Theme.of(context).textTheme.labelLarge?.fontSize,
+                      ),
+                ),
+              ),
+          ].where((e) => e != null).toList(),
+      elevation: 0.0,
+      shape: Theme.of(context).dialogTheme.shape,
+    );
   }
 }
 
