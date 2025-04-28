@@ -1,50 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
-///Single selection callback of list dialog
+/// Single selection callback of list dialog
 typedef OnSingleSelectionCallback = void Function(int selectedIndex);
 
-///Multiple selection callback of list dialog
+/// Multiple selection callback of list dialog
 typedef OnMultiSelectionCallback = void Function(List<int> selectedIndexes);
 
 ///
-///created time: 2019-07-31 09:35
-///author linzhiliang
-///version 1.0
-///since
-///file name: classic_dialog_widget.dart
-///description: General dialog
+/// created time: 2019-07-31 09:35
+/// author: linzhiliang
+/// version: 1.0
+/// description: General dialog
 ///
 @immutable
 class ClassicGeneralDialogWidget extends StatelessWidget {
-  ///Title text of the dialog
-  final String titleText;
+  /// Title text of the dialog
+  final String? titleText;
 
-  ///Content text of the dialog
-  final String contentText;
+  /// Content text of the dialog
+  final String? contentText;
 
-  ///Text of negative button, the left button at the bottom of dialog
-  final String negativeText;
+  /// Text of negative button, the left button at the bottom of dialog
+  final String? negativeText;
 
-  ///Text of positive button, the right button at the bottom of dialog
-  final String positiveText;
+  /// Text of positive button, the right button at the bottom of dialog
+  final String? positiveText;
 
-  ///TextStyle of negative button, the left button at the bottom of dialog
-  final TextStyle negativeTextStyle;
+  /// TextStyle of negative button, the left button at the bottom of dialog
+  final TextStyle? negativeTextStyle;
 
-  ///TextStyle of positive button, the right button at the bottom of dialog
-  final TextStyle positiveTextStyle;
+  /// TextStyle of positive button, the right button at the bottom of dialog
+  final TextStyle? positiveTextStyle;
 
-  ///Click callback of negative button
-  final VoidCallback onNegativeClick;
+  /// Click callback of negative button
+  final VoidCallback? onNegativeClick;
 
-  ///Click callback of positive button
-  final VoidCallback onPositiveClick;
+  /// Click callback of positive button
+  final VoidCallback? onPositiveClick;
 
-  ///Actions at the bottom of dialog, when this is set, [negativeText] [positiveText] [onNegativeClick] [onPositiveClick] will not work。
-  final List<Widget> actions;
+  /// Actions at the bottom of dialog
+  final List<Widget>? actions;
 
-  ClassicGeneralDialogWidget({
+  const ClassicGeneralDialogWidget({
+    super.key,
     this.titleText,
     this.contentText,
     this.actions,
@@ -55,123 +53,6 @@ class ClassicGeneralDialogWidget extends StatelessWidget {
     this.onNegativeClick,
     this.onPositiveClick,
   });
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return CustomDialogWidget(
-      title: titleText != null
-          ? Text(
-              titleText,
-              style: Theme.of(context).dialogTheme.titleTextStyle,
-            )
-          : null,
-      content: contentText != null
-          ? Text(
-              contentText,
-              style: Theme.of(context).dialogTheme.contentTextStyle,
-            )
-          : null,
-      actions: actions ??
-          [
-            onNegativeClick != null
-                ? FlatButton(
-                    onPressed: onNegativeClick,
-                    splashColor: Theme.of(context).splashColor,
-                    highlightColor: Theme.of(context).highlightColor,
-                    child: Text(
-                      negativeText ?? 'cancel',
-                      style: negativeTextStyle ??
-                          TextStyle(
-                              color: Theme.of(context).textTheme.overline.color,
-                              fontSize:
-                                  Theme.of(context).textTheme.button.fontSize),
-                    ),
-                  )
-                : null,
-            onPositiveClick != null
-                ? FlatButton(
-                    onPressed: onPositiveClick,
-                    splashColor: Theme.of(context).splashColor,
-                    highlightColor: Theme.of(context).highlightColor,
-                    child: Text(
-                      positiveText ?? 'confirm',
-                      style: positiveTextStyle ??
-                          TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontSize:
-                                  Theme.of(context).textTheme.button.fontSize),
-                    ),
-                  )
-                : null,
-          ],
-      elevation: 0.0,
-      shape: Theme.of(context).dialogTheme.shape,
-    );
-  }
-}
-
-///List type
-enum ListType {
-  ///Single
-  single,
-
-  ///Single select
-  singleSelect,
-
-  ///Multiple select
-  multiSelect,
-}
-
-///
-///created time: 2019-08-01 08:59
-///author linzhiliang
-///version 1.0
-///since
-///file name: classic_dialog_widget.dart
-///description: Classic dialog with list content
-///
-@immutable
-class ClassicGeneralDialogWidget extends StatelessWidget {
-  /// Title text of the dialog
-  final String? titleText; // Made nullable
-
-  /// Content text of the dialog
-  final String? contentText; // Made nullable
-
-  /// Text of negative button, the left button at the bottom of dialog
-  final String? negativeText; // Made nullable
-
-  /// Text of positive button, the right button at the bottom of dialog
-  final String? positiveText; // Made nullable
-
-  /// TextStyle of negative button, the left button at the bottom of dialog
-  final TextStyle? negativeTextStyle; // Already nullable
-
-  /// TextStyle of positive button, the right button at the bottom of dialog
-  final TextStyle? positiveTextStyle; // Already nullable
-
-  /// Click callback of negative button
-  final VoidCallback? onNegativeClick; // Already nullable
-
-  /// Click callback of positive button
-  final VoidCallback? onPositiveClick; // Already nullable
-
-  /// Actions at the bottom of dialog
-  final List<Widget>? actions; // Already nullable
-
-  const ClassicGeneralDialogWidget({
-    this.titleText,
-    this.contentText,
-    this.actions,
-    this.negativeText,
-    this.positiveText,
-    this.negativeTextStyle,
-    this.positiveTextStyle,
-    this.onNegativeClick,
-    this.onPositiveClick,
-    Key? key,
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +72,7 @@ class ClassicGeneralDialogWidget extends StatelessWidget {
       actions: actions ??
           [
             if (onNegativeClick != null)
-              TextButton( // Updated to TextButton (FlatButton is deprecated)
+              TextButton(
                 onPressed: onNegativeClick,
                 style: TextButton.styleFrom(
                   splashFactory: Theme.of(context).splashFactory,
@@ -206,7 +87,7 @@ class ClassicGeneralDialogWidget extends StatelessWidget {
                 ),
               ),
             if (onPositiveClick != null)
-              TextButton( // Updated to TextButton
+              TextButton(
                 onPressed: onPositiveClick,
                 style: TextButton.styleFrom(
                   splashFactory: Theme.of(context).splashFactory,
@@ -220,37 +101,119 @@ class ClassicGeneralDialogWidget extends StatelessWidget {
                       ),
                 ),
               ),
-          ].where((e) => e != null).toList(),
+          ].whereType<Widget>().toList(),
       elevation: 0.0,
       shape: Theme.of(context).dialogTheme.shape,
     );
   }
 }
 
-class ClassicListDialogWidgetState<T> extends State<ClassicListDialogWidget> {
-  int selectedIndex;
-  List<bool> valueList;
+/// List type
+enum ListType {
+  /// Single
+  single,
+
+  /// Single select
+  singleSelect,
+
+  /// Multiple select
+  multiSelect,
+}
+
+///
+/// created time: 2019-08-01 08:59
+/// author: linzhiliang
+/// version: 1.0
+/// description: Classic dialog with list content
+///
+class ClassicListDialogWidget<T> extends StatefulWidget {
+  /// Title text of the dialog
+  final String? titleText;
+
+  /// Data of the list
+  final List<T>? dataList;
+
+  /// Custom list item widget
+  final Widget? listItem;
+
+  /// Click callback of default list item
+  final VoidCallback? onListItemClick;
+
+  /// List type
+  final ListType listType;
+
+  /// Where to place control relative to the text
+  final ListTileControlAffinity controlAffinity;
+
+  /// The active color of radio or checkbox
+  final Color? activeColor;
+
+  /// Selected indexes when [listType] is [ListType.multiSelect]
+  final List<int>? selectedIndexes;
+
+  /// Selected index when [listType] is [ListType.singleSelect]
+  final int? selectedIndex;
+
+  /// Text of negative button, the left button at the bottom of dialog
+  final String? negativeText;
+
+  /// Text of positive button, the right button at the bottom of dialog
+  final String? positiveText;
+
+  /// Click callback of negative button
+  final VoidCallback? onNegativeClick;
+
+  /// Click callback of positive button
+  final VoidCallback? onPositiveClick;
+
+  /// Actions at the bottom of dialog
+  final List<Widget>? actions;
+
+  const ClassicListDialogWidget({
+    super.key,
+    this.titleText,
+    this.dataList,
+    this.listItem,
+    this.onListItemClick,
+    this.listType = ListType.single,
+    this.controlAffinity = ListTileControlAffinity.leading,
+    this.activeColor,
+    this.selectedIndexes,
+    this.selectedIndex,
+    this.actions,
+    this.negativeText,
+    this.positiveText,
+    this.onNegativeClick,
+    this.onPositiveClick,
+  });
+
+  @override
+  State<ClassicListDialogWidget<T>> createState() => ClassicListDialogWidgetState<T>();
+}
+
+class ClassicListDialogWidgetState<T> extends State<ClassicListDialogWidget<T>> {
+  int? selectedIndex;
+  List<bool>? valueList;
   List<int> selectedIndexes = [];
 
   @override
   void initState() {
     super.initState();
-    valueList = List.generate(widget.dataList.length, (index) {
-      if (widget.selectedIndexes != null &&
-          widget.selectedIndexes.contains(index)) {
-        return true;
-      }
-      return false;
-    }).toList(growable: true);
+    if (widget.dataList != null) {
+      valueList = List.generate(widget.dataList!.length, (index) {
+        return widget.selectedIndexes?.contains(index) ?? false;
+      }).toList(growable: true);
+    } else {
+      valueList = [];
+    }
     selectedIndex = widget.selectedIndex;
-    selectedIndexes = widget.selectedIndexes;
+    selectedIndexes = widget.selectedIndexes?.toList() ?? [];
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    Widget contentWidget;
-    if (widget.dataList != null) {
+    Widget? contentWidget;
+    if (widget.dataList != null && widget.dataList!.isNotEmpty) {
       contentWidget = ListView.builder(
         shrinkWrap: true,
         itemBuilder: (context, index) {
@@ -259,7 +222,7 @@ class ClassicListDialogWidgetState<T> extends State<ClassicListDialogWidget> {
               case ListType.single:
                 return ListTile(
                   title: Text(
-                    widget.dataList[index].toString(),
+                    widget.dataList![index].toString(),
                     style: Theme.of(context).dialogTheme.contentTextStyle,
                   ),
                   onTap: widget.onListItemClick ??
@@ -267,16 +230,14 @@ class ClassicListDialogWidgetState<T> extends State<ClassicListDialogWidget> {
                         Navigator.of(context).pop(index);
                       },
                 );
-                break;
               case ListType.singleSelect:
                 return RadioListTile<int>(
                   controlAffinity: widget.controlAffinity,
                   title: Text(
-                    widget.dataList[index].toString(),
+                    widget.dataList![index].toString(),
                     style: Theme.of(context).dialogTheme.contentTextStyle,
                   ),
-                  activeColor:
-                      widget.activeColor ?? Theme.of(context).primaryColor,
+                  activeColor: widget.activeColor ?? Theme.of(context).primaryColor,
                   value: index,
                   groupValue: selectedIndex,
                   onChanged: (value) {
@@ -285,29 +246,26 @@ class ClassicListDialogWidgetState<T> extends State<ClassicListDialogWidget> {
                     });
                   },
                 );
-                break;
               case ListType.multiSelect:
                 return CheckboxListTile(
                   controlAffinity: widget.controlAffinity,
-                  selected: valueList[index],
-                  value: valueList[index],
+                  selected: valueList![index],
+                  value: valueList![index],
                   title: Text(
-                    widget.dataList[index].toString(),
+                    widget.dataList![index].toString(),
                     style: Theme.of(context).dialogTheme.contentTextStyle,
                   ),
                   onChanged: (value) {
                     setState(() {
-                      valueList[index] = value;
+                      valueList![index] = value ?? false;
                     });
                   },
-                  activeColor:
-                      widget.activeColor ?? Theme.of(context).primaryColor,
+                  activeColor: widget.activeColor ?? Theme.of(context).primaryColor,
                 );
-                break;
               default:
                 return ListTile(
                   title: Text(
-                    widget.dataList[index].toString(),
+                    widget.dataList![index].toString(),
                     style: Theme.of(context).dialogTheme.contentTextStyle,
                   ),
                   onTap: widget.onListItemClick ??
@@ -315,46 +273,45 @@ class ClassicListDialogWidgetState<T> extends State<ClassicListDialogWidget> {
                         Navigator.of(context).pop(index);
                       },
                 );
-                break;
             }
           } else {
             return widget.listItem;
           }
         },
-        itemCount: widget.dataList.length,
+        itemCount: widget.dataList!.length,
       );
       contentWidget = Container(
         width: double.maxFinite,
         child: contentWidget,
       );
-    } else {}
+    }
 
     return CustomDialogWidget(
       title: widget.titleText != null
           ? Text(
-              widget.titleText,
+              widget.titleText!,
               style: Theme.of(context).dialogTheme.titleTextStyle,
             )
           : null,
-      contentPadding: EdgeInsets.all(0.0),
+      contentPadding: const EdgeInsets.all(0.0),
       content: contentWidget,
       actions: widget.actions ??
           [
-            widget.onNegativeClick != null
-                ? FlatButton(
-                    onPressed: widget.onNegativeClick,
-                    splashColor: Theme.of(context).splashColor,
-                    highlightColor: Theme.of(context).highlightColor,
-                    child: Text(
-                      widget.negativeText ?? 'cancel',
-                      style: TextStyle(
-                          color: Theme.of(context).textTheme.overline.color,
-                          fontSize:
-                              Theme.of(context).textTheme.button.fontSize),
-                    ),
-                  )
-                : null,
-            FlatButton(
+            if (widget.onNegativeClick != null)
+              TextButton(
+                onPressed: widget.onNegativeClick,
+                style: TextButton.styleFrom(
+                  splashFactory: Theme.of(context).splashFactory,
+                ),
+                child: Text(
+                  widget.negativeText ?? 'Cancel',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodySmall?.color,
+                    fontSize: Theme.of(context).textTheme.labelLarge?.fontSize,
+                  ),
+                ),
+              ),
+            TextButton(
               onPressed: widget.onPositiveClick ??
                   () {
                     switch (widget.listType) {
@@ -366,9 +323,8 @@ class ClassicListDialogWidgetState<T> extends State<ClassicListDialogWidget> {
                         break;
                       case ListType.multiSelect:
                         selectedIndexes = [];
-                        int length = valueList.length;
-                        for (int i = 0; i < length; i++) {
-                          if (valueList[i]) {
+                        for (int i = 0; i < (valueList?.length ?? 0); i++) {
+                          if (valueList![i]) {
                             selectedIndexes.add(i);
                           }
                         }
@@ -376,16 +332,18 @@ class ClassicListDialogWidgetState<T> extends State<ClassicListDialogWidget> {
                         break;
                     }
                   },
-              splashColor: Theme.of(context).splashColor,
-              highlightColor: Theme.of(context).highlightColor,
+              style: TextButton.styleFrom(
+                splashFactory: Theme.of(context).splashFactory,
+              ),
               child: Text(
-                widget.positiveText ?? 'confirm',
+                widget.positiveText ?? 'Confirm',
                 style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: Theme.of(context).textTheme.button.fontSize),
+                  color: Theme.of(context).primaryColor,
+                  fontSize: Theme.of(context).textTheme.labelLarge?.fontSize,
+                ),
               ),
             ),
-          ],
+          ].whereType<Widget>().toList(),
       elevation: 0.0,
       shape: Theme.of(context).dialogTheme.shape,
     );
