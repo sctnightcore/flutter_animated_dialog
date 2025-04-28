@@ -80,7 +80,7 @@ Future<Object?> showAnimatedDialog({
   assert(builder != null);
   assert(debugCheckHasMaterialLocalizations(context));
 
-  final ThemeData theme = Theme.of(context);
+  final DialogTheme theme = DialogTheme.of(context);
 
   isShowing = true;
   return showGeneralDialog(
@@ -92,7 +92,7 @@ Future<Object?> showAnimatedDialog({
         top: false,
         child: Builder(builder: (BuildContext context) {
           return theme != null
-              ? Theme(data: theme, child: pageChild)
+              ? Theme(data: Theme.of(context), child: pageChild)
               : pageChild;
         }),
       );
