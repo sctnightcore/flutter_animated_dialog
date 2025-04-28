@@ -67,7 +67,7 @@ enum DialogTransitionType {
 }
 
 /// Displays a Material dialog above the current contents of the app
-Future<T> showAnimatedDialog<T>({
+Future<Object?> showAnimatedDialog({
   required BuildContext context,
   bool barrierDismissible = false,
   required WidgetBuilder builder,
