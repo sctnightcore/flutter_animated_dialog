@@ -42,7 +42,7 @@ class ClassicGeneralDialogWidget extends StatelessWidget {
   final List<Widget>? actions;
 
   const ClassicGeneralDialogWidget({
-    super.key,
+    Key? key, // Changed from super.key
     this.titleText,
     this.contentText,
     this.actions,
@@ -52,7 +52,7 @@ class ClassicGeneralDialogWidget extends StatelessWidget {
     this.positiveTextStyle,
     this.onNegativeClick,
     this.onPositiveClick,
-  });
+  }) : super(key: key); // Pass key to superclass
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +170,7 @@ class ClassicListDialogWidget<T> extends StatefulWidget {
   final List<Widget>? actions;
 
   const ClassicListDialogWidget({
-    super.key,
+    Key? key, // Changed from super.key
     this.titleText,
     this.dataList,
     this.listItem,
@@ -185,7 +185,7 @@ class ClassicListDialogWidget<T> extends StatefulWidget {
     this.positiveText,
     this.onNegativeClick,
     this.onPositiveClick,
-  });
+  }) : super(key: key); // Pass key to superclass
 
   @override
   State<ClassicListDialogWidget<T>> createState() => ClassicListDialogWidgetState<T>();
