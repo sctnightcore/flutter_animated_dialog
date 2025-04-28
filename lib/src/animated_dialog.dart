@@ -74,7 +74,7 @@ Future<T> showAnimatedDialog<T>({
   DialogTransitionType animationType = DialogTransitionType.fade,
   Curve curve = Curves.linear,
   Duration? duration,
-  AlignmentGeometry alignment = Alignment.center,
+  Alignment alignment = Alignment.center,
   Axis? axis,
 }) {
   assert(builder != null);
@@ -188,7 +188,7 @@ Future<T> showAnimatedDialog<T>({
           );
         case DialogTransitionType.scale:
           return ScaleTransition(
-            alignment: alignment as Alignment, // Cast to Alignment
+            alignment: alignment,
             scale: CurvedAnimation(
               parent: animation,
               curve: Interval(
@@ -201,7 +201,7 @@ Future<T> showAnimatedDialog<T>({
           );
         case DialogTransitionType.fadeScale:
           return ScaleTransition(
-            alignment: alignment as Alignment, // Cast to Alignment
+            alignment: alignment,
             scale: CurvedAnimation(
               parent: animation,
               curve: Interval(
@@ -220,7 +220,7 @@ Future<T> showAnimatedDialog<T>({
           );
         case DialogTransitionType.scaleRotate:
           return ScaleTransition(
-            alignment: alignment as Alignment, // Cast to Alignment
+            alignment: alignment,
             scale: CurvedAnimation(
               parent: animation,
               curve: Interval(
